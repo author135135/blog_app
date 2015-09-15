@@ -3,3 +3,4 @@
 .idea
 static/*
 media/*
+blog/settings.py
