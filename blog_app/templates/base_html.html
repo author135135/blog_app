@@ -5,9 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Главная страница{% endblock %}</title>
 
-    {% block seo %}{% endblock %}
+    {% block seo %}
+        <meta name="description" content="Описание главной страницы">
+        <meta name="keywords" content="Ключевые слова главной страницы">
+    {% endblock %}
 
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' type='text/css' />
     <link rel="stylesheet" href="{% static 'blog_app/css/style.css' %}" type="text/css" />
