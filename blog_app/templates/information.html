@@ -1,0 +1,18 @@
+{% extends 'base_html.html' %}
+
+{% block title %}{{ object.meta_title|default:object.title }}{% endblock %}
+
+{% block seo %}
+    {% include '_seo_tags.html' %}
+{% endblock %}
+
+{% block body_classes %}page{% endblock %}
+
+{% block content %}
+    <article class="page type-page status-publish hentry">
+        <header class="entry-header">
+            <h1 class="entry-title">{{ object.title }}</h1>
+        </header>
+        <div class="entry-content clearfix">{{ object.content|safe }}</div>
+    </article>
+{% endblock %}

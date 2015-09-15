@@ -1,13 +1,150 @@
+{% load staticfiles %}
+{% load blog_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
+
     {% block seo %}{% endblock %}
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' type='text/css' />
+    <link rel="stylesheet" href="{% static 'blog_app/css/style.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'blog_app/fonts/fontawesome/css/font-awesome.min.css' %}" type="text/css" />
+    <script type='text/javascript' src='{% static 'blog_app/js/jquery.js' %}'></script>
+    <script type="text/javascript" src='{% static 'blog_app/js/colormag-custom.js' %}'></script>
+
     {% block style %}{% endblock %}
+
     {% block scripts %}{% endblock %}
 </head>
-<body>
-    {% block content %}{% endblock %}
+<body class="{% block body_classes %}home blog{% endblock %}">
+<div id="page" class="hfeed site">
+    <header id="masthead" class="site-header clearfix">
+        <div id="header-text-nav-container" class="clearfix">
+            <div class="news-bar">
+                <div class="inner-wrap clearfix">
+                    <div class="date-in-header">{% now 'l, F j, Y' %}</div>
+                    {% if latest_posts %}
+                        <div class="breaking-news">
+                            <strong class="breaking-news-latest">Новинки:</strong>
+                            <ul class="newsticker">
+                                {% for post in latest_posts %}
+                                    <li>
+                                        <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                            {{ post.title|truncatechars:50 }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    {% region 'header_social' %}
+
+                </div>
+            </div>
+
+            <div class="inner-wrap">
+
+                <div id="header-text-nav-wrap" class="clearfix">
+                    <div id="header-left-section">
+                        <div id="header-logo-image">
+                            <a href="{% url 'blog_app:index' %}" title="COLORMAG" rel="home">
+                                <img src="{% static 'blog_app/images/logo.png' %}" alt="COLORMAG">
+                            </a>
+                        </div>
+                    </div>
+                    <div id="header-right-section">
+                        <div id="header-right-sidebar" class="clearfix">
+						    <aside id="colormag_728x90_advertisement_widget-9" class="widget widget_728x90_advertisement clearfix">
+                                <div class="advertisement_728x90">
+                                    <div class="advertisement-content">
+
+                                        {% region 'header_ads' %}
+
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+					</div>
+                </div>
+
+            </div>
+
+
+            <nav id="site-navigation" class="main-navigation clearfix" role="navigation">
+                <div class="inner-wrap clearfix">
+                    <div class="home-icon front_page_on">
+                        <a href="{% url 'blog_app:index' %}" title="COLORMAG"><i class="fa fa-home"></i></a>
+                    </div>
+                    <h4 class="menu-toggle"></h4>
+                    <div class="menu-primary-container">
+
+                        {% menu 'menu-primary' %}
+
+                    </div>
+                    <i class="fa fa-search search-top"></i>
+                    <div class="search-form-top">
+                        <form action="{% url 'blog_app:search' %}" class="search-form searchform clearfix" method="get">
+                            <div class="search-wrap">
+                                {{ search_form.query }}
+                                <button class="search-icon" type="submit"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div id="main" class="clearfix">
+        <div class="inner-wrap clearfix">
+
+            {% region 'top_posts' %}
+
+            <div class="main-content-section clearfix">
+                <div id="primary">
+                    <div id="content" class="clearfix">
+
+                        {% block content %}{% endblock %}
+
+                    </div>
+                </div>
+                <div id="secondary">
+                    {% sidebar_content %}
+                    {% region 'sidebar_ads' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="colophon" class="clearfix">
+        <div class="footer-socket-wrapper clearfix">
+            <div class="inner-wrap">
+                <div class="footer-socket-area">
+                    <div class="footer-socket-right-section">
+
+                        {% region 'footer_social' %}
+
+                    </div>
+                    <div class="footer-socket-left-sectoin">
+                        <div class="copyright">Copyright &copy; 2015 <a href="#" title="COLORMAG" ><span>COLORMAG</span></a>.
+                            All rights reserved.<br>Theme: ColorMag by <a href="#" target="_blank" title="ThemeGrill" rel="designer"><span>ThemeGrill</span></a>.
+                            Powered by <a href="http://wordpress.org" target="_blank" title="WordPress"><span>WordPress</span></a>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <a href="#masthead" id="scroll-up"><i class="fa fa-chevron-up"></i></a>
+</div>
+<script type="text/javascript" src='{% static 'blog_app/js/navigation.js' %}'></script>
+<script type='text/javascript' src='{% static 'blog_app/js/news-ticker/jquery.newsTicker.min.js' %}'></script>
+<script type='text/javascript' src='{% static 'blog_app/js/news-ticker/ticker-setting.js' %}'></script>
+<script type='text/javascript' src='{% static 'blog_app/js/sticky/jquery.sticky.js' %}'></script>
+<script type='text/javascript' src='{% static 'blog_app/js/sticky/sticky-setting.js' %}'></script>
 </body>
 </html>

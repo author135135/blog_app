@@ -1,0 +1,45 @@
+{% extends 'base_html.html' %}
+{% load thumbnail %}
+
+{% block title %}{{ object.meta_title|default:object.title }}{% endblock %}
+
+{% block seo %}
+    {% include '_seo_tags.html' %}
+{% endblock %}
+
+{% block body_classes %}archive category{% endblock %}
+
+{% block content %}
+    <header class="page-header">
+        <h3 class="page-title" style="border-bottom-color: #dd5a5a">
+            <span style="background-color: #dd5a5a">{{ object.title }}</span>
+        </h3>
+    </header>
+    <div class="article-container">
+        {% for post in object.post_set.all %}
+            <article class="post">
+                <div class="featured-image">
+                    <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                        {% thumbnail post.main_image "800x445" crop="center" as img %}
+                            <img src="{{ img.url }}" alt="{{ post.title }}"/>
+                        {% endthumbnail %}
+                    </a>
+                </div>
+                <div class="article-content clearfix">
+                    <header class="entry-header">
+                        <h1 class="entry-title">
+                            <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a>
+                        </h1>
+                    </header>
+                    <div class="below-entry-meta"></div>
+                    <div class="entry-content clearfix">
+                        <p>{{ post.content|striptags|safe|truncatewords:20 }}</p>
+                        <a class="more-link" title="{{ post.title }}" href="{{ post.get_absolute_url }}">
+                            <span>Читать...</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}

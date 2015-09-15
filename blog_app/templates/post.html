@@ -1,0 +1,64 @@
+{% extends 'base_html.html' %}
+{% load thumbnail static %}
+
+{% block title %}{{ object.meta_title|default:object.title }}{% endblock %}
+
+{% block seo %}
+    {% include '_seo_tags.html' %}
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'blog_app/js/magnific-popup/magnific-popup.css' %}" type="text/css" />
+{% endblock %}
+
+{% block scripts %}
+    <script type='text/javascript' src={% static 'blog_app/js/magnific-popup/jquery.magnific-popup.min.js' %}></script>
+    <script type='text/javascript' src={% static 'blog_app/js/magnific-popup/image-popup-setting.js' %}></script>
+{% endblock %}
+
+{% block body_classes %}single single-post{% endblock %}
+
+{% block content %}
+    <article class="post">
+        <div class="featured-image">
+            <a href="{{ object.main_image.url }}" class="image-popup">
+                {% thumbnail object.main_image "800x445" crop="center" as img %}
+                    <img src="{{ img.url }}" alt="{{ object.title }}" />
+                {% endthumbnail %}
+            </a>
+        </div>
+        <div class="article-content clearfix">
+            <header class="entry-header">
+                <h1 class="entry-title">{{ object.title }}</h1>
+            </header>
+            <div class="below-entry-meta"></div>
+            <div class="entry-content clearfix">{{ object.content|safe }}</div>
+        </div>
+    </article>
+    {% if related_posts %}
+        <h4 class="related-posts-main-title">
+            <i class="fa fa-thumbs-up"></i>
+            <span>Вам также может понравиться</span>
+        </h4>
+        <div class="related-posts clearfix">
+            {% for post in related_posts %}
+                <div class="single-related-posts">
+                    <div class="related-posts-thumbnail">
+                        <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                            {% thumbnail post.main_image "390x205" crop="center" as img %}
+                                <img src="{{ img.url }}" alt="{{ post.title }}" />
+                            {% endthumbnail %}
+                        </a>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="entry-title">
+                            <a href="{{ post.get_absolute_url }}" rel="bookmark" title="{{ post.title }}">
+                                {{ post.title }}
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

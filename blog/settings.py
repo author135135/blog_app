@@ -38,9 +38,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog_app',
+    'ckeditor_uploader',
+    'ckeditor',
+    'debug_toolbar',
+    'sorl.thumbnail',
 )
 
 MIDDLEWARE_CLASSES = (
+    'blog_app.middleware.BasicAuthMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -64,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog_app.context_processors.context_data',
             ],
         },
     },
@@ -77,8 +83,11 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'localhost',
+        'NAME': 'blog',
+        'USER': 'root',
+        'PASSWORD': '',
     }
 }
 
@@ -88,7 +97,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
@@ -101,3 +110,41 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# CKEDITOR settings
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'width': '100%',
+        'allowedContent': True,
+        'removeFormatTags': '',
+        'removeFormatAttributes': '',
+        'protectedSource': ['/<i[^>]*><\/i>/g']
+    },
+}
+
+
+# Custom settings
+BLOG_MENU_POSITIONS = (
+    ('menu-primary', 'Top menu'),
+)
+
+BLOG_BLOCK_REGIONS = (
+    ('header_social', 'Header social links'),
+    ('header_ads', 'Header advertisement'),
+    ('top_posts', 'Top posts'),
+    ('sidebar_ads', 'Sidebar advertisement'),
+    ('footer_social', 'Footer social links'),
+)
+
+# Basic auth settings
+BASICAUTH_USERNAME = 'admin'
+BASICAUTH_PASSWORD = '135135'

@@ -1,0 +1,50 @@
+{% if block.block_top_posts.is_active %}
+    {% load thumbnail %}
+
+    <div class="front-page-top-section clearfix">
+        <div class="widget_slider_area">
+            <section id="colormag_featured_posts_slider_widget-4" class="widget widget_featured_slider widget_featured_meta clearfix">
+                <div class="widget_slider_area_rotate">
+                    <div class="single-slide displayblock">
+                        <figure class="slider-featured-image">
+                            <a href="{{ block.block_top_posts.main_post.get_absolute_url }}" title="{{ block.block_top_posts.main_post.title }}">
+                                {% thumbnail block.block_top_posts.main_post.main_image "800x445" crop="center" as img %}
+                                    <img src="{{ img.url }}" alt="{{ block.block_top_posts.main_post.title }}" title="{{ block.block_top_posts.main_post.title }}" />
+                                {% endthumbnail %}
+                            </a>
+                        </figure>
+                        <div class="slide-content">
+                            <h3 class="entry-title">
+                                <a href="{{ block.block_top_posts.main_post.get_absolute_url }}" title="{{ block.block_top_posts.main_post.title }}">
+                                    {{ block.block_top_posts.main_post.title }}
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="widget_beside_slider">
+            <section id="colormag_highlighted_posts_widget-3" class="widget widget_highlighted_posts widget_featured_meta clearfix">
+                <div class="widget_highlighted_post_area">
+                    {% for post in block.block_top_posts.posts.all %}
+                        <div class="single-article">
+                            <figure class="highlights-featured-image">
+                                <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                    {% thumbnail post.main_image "392x272" crop="center" as post_img %}
+                                        <img src="{{ post_img.url }}" alt="{{ post.title }}" title="{{ post.title }}" />
+                                    {% endthumbnail %}
+                                </a>
+                            </figure>
+                            <div class="article-content">
+                                <h3 class="entry-title">
+                                    <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a>
+                                </h3>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+{% endif %}

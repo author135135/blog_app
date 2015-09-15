@@ -1,4 +1,121 @@
 {% extends 'base_html.html' %}
+{% load thumbnail %}
+
 {% block content %}
-    <h1>{{ heading }}</h1>
+    {% for category in categories %}
+        {% if category.post_set.count %}
+            {% cycle 1 2 3 as as_big silent %}
+            {% cycle '#81d742' '#bd4cce' '#dd5a5a' '#777fce' as widget_color silent %}
+
+            {% if as_big == 1 %}
+                <section class="widget widget_featured_posts widget_featured_meta clearfix">
+                    <h3 class="widget-title" style="border-bottom-color: {{ widget_color }};">
+                        <span style="background-color: {{ widget_color }};">{{ category.title }}</span>
+                    </h3>
+                    {% for post in category.post_set.all|slice:':5' %}
+                        {% if forloop.first %}
+                            <div class="first-post">
+                                <div class="single-article clearfix">
+                                    <figure>
+                                        <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                            {% thumbnail post.main_image "390x205" crop="center" as img %}
+                                                <img src="{{ img.url }}" alt="{{ post.title }}" title="{{ post.title }}" />
+                                            {% endthumbnail %}
+                                        </a>
+                                    </figure>
+                                    <div class="article-content">
+                                        <h3 class="entry-title">
+                                            <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                                {{ post.title }}
+                                            </a>
+                                        </h3>
+                                        <div class="below-entry-meta"></div>
+                                        <div class="entry-content">
+                                            <p>{{ post.content|striptags|safe|truncatewords:20 }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="following-post">
+                                <div class="single-article clearfix">
+                                    <figure>
+                                        <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                            {% thumbnail post.main_image "130x90" crop="center" as img %}
+                                                <img src="{{ img.url }}" alt="{{ post.title }}" title="{{ post.title }}" />
+                                            {% endthumbnail %}
+                                        </a>
+                                    </figure>
+                                    <div class="article-content">
+                                        <h3 class="entry-title">
+                                            <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                                {{ post.title }}
+                                            </a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </section>
+            {% else %}
+                <div class="tg-one-half {% if as_big == 3 %}tg-one-half-last{% endif %}">
+                    <section class="widget widget_featured_posts widget_featured_posts_vertical widget_featured_meta clearfix">
+                        <h3 class="widget-title" style="border-bottom-color: {{ widget_color }};">
+                            <span style="background-color: {{ widget_color }};">{{ category.title }}</span>
+                        </h3>
+
+                        {% for post in category.post_set.all|slice:':4' %}
+                            {% if forloop.first %}
+                                <div class="first-post">
+                                    <div class="single-article clearfix">
+                                        <figure>
+                                            <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                                {% thumbnail post.main_image "390x205" crop="center" as img %}
+                                                    <img src="{{ img.url }}" alt="{{ post.title }}" title="{{ post.title }}" />
+                                                {% endthumbnail %}
+                                            </a>
+                                        </figure>
+                                        <div class="article-content">
+                                            <h3 class="entry-title">
+                                                <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                                    {{ post.title }}
+                                                </a>
+                                            </h3>
+                                            <div class="below-entry-meta"></div>
+                                            <div class="entry-content">
+                                                <p>{{ post.content|striptags|safe|truncatewords:20 }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="following-post">
+                                    <div class="single-article clearfix">
+                                        <figure>
+                                            <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                                {% thumbnail post.main_image "130x90" crop="center" as img %}
+                                                    <img src="{{ img.url }}" alt="{{ post.title }}" title="{{ post.title }}" />
+                                                {% endthumbnail %}
+                                            </a>
+                                        </figure>
+                                        <div class="article-content">
+                                            <h3 class="entry-title">
+                                                <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">
+                                                    {{ post.title }}
+                                                </a>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </section>
+                </div>
+                {% if as_big == 3 %}
+                    <div class="clearfix"></div>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
 {% endblock %}
