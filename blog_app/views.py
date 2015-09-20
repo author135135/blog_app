@@ -5,7 +5,7 @@ from blog_app import models
 
 # Pages CBV
 class FrontPageView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'blog_app/index.html'
 
     def get_context_data(self, **kwargs):
         context = super(FrontPageView, self).get_context_data(**kwargs)
@@ -18,12 +18,12 @@ class FrontPageView(TemplateView):
 
 
 class CategoryPageView(DetailView):
-    template_name = 'category.html'
+    template_name = 'blog_app/category.html'
     model = models.Category
 
 
 class PostPageView(DetailView):
-    template_name = 'post.html'
+    template_name = 'blog_app/post.html'
     model = models.Post
     slug_url_kwarg = 'post_slug'
 
@@ -36,12 +36,12 @@ class PostPageView(DetailView):
 
 
 class InformationPageView(DetailView):
-    template_name = 'information.html'
+    template_name = 'blog_app/information.html'
     model = models.Page
 
 
 class SearchPageView(ListView):
-    template_name = 'search.html'
+    template_name = 'blog_app/search.html'
     model = models.Post
     context_object_name = 'posts'
 

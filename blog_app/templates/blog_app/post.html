@@ -1,10 +1,10 @@
-{% extends 'base_html.html' %}
+{% extends 'blog_app/base_html.html' %}
 {% load thumbnail static %}
 
 {% block title %}{{ object.meta_title|default:object.title }}{% endblock %}
 
 {% block seo %}
-    {% include '_seo_tags.html' %}
+    {% include 'blog_app/_seo_tags.html' %}
 {% endblock %}
 
 {% block style %}

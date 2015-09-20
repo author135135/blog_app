@@ -1,22 +1,23 @@
-{% extends 'base_html.html' %}
+{% extends 'blog_app/base_html.html' %}
 {% load thumbnail %}
 
-{% block title %}{{ object.meta_title|default:object.title }}{% endblock %}
+{% block title %}Поиск - {{ request.GET.query }}{% endblock %}
 
 {% block seo %}
-    {% include '_seo_tags.html' %}
+    <meta name="description" content="Описание страници поиска">
+    <meta name="keywords" content="Ключевые слова страницы поиска">
 {% endblock %}
 
-{% block body_classes %}archive category{% endblock %}
+{% block body_classes %}search{% endblock %}
 
 {% block content %}
     <header class="page-header">
         <h3 class="page-title" style="border-bottom-color: #dd5a5a">
-            <span style="background-color: #dd5a5a">{{ object.title }}</span>
+            <span style="background-color: #dd5a5a">Поиск - {{ request.GET.query }}</span>
         </h3>
     </header>
     <div class="article-container">
-        {% for post in object.post_set.all %}
+        {% for post in posts %}
             <article class="post">
                 <div class="featured-image">
                     <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">

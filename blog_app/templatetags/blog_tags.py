@@ -7,7 +7,7 @@ from blog_app import models
 register = template.Library()
 
 
-@register.inclusion_tag(file_name='tags/menu.html')
+@register.inclusion_tag(file_name='blog_app/tags/menu.html')
 def menu(region=None):
     if region is None:
         raise template.TemplateSyntaxError("Parameter `region` must be a valid menu position string, not None")
@@ -49,7 +49,7 @@ def menu(region=None):
     }
 
 
-@register.inclusion_tag(file_name='tags/sidebar_content.html')
+@register.inclusion_tag(file_name='blog_app/tags/sidebar_content.html')
 def sidebar_content():
     category = None
     posts = None
@@ -78,7 +78,7 @@ def region(context, region_name=None, *args, **kwargs):
 
     for block in blocks:
         if block.region == region_name:
-            block_template = get_template(template_name=os.path.join('blocks', block.template))
+            block_template = get_template(template_name=os.path.join('blog_app/blocks', block.template))
             output += block_template.render({
                 'block': block,
             })

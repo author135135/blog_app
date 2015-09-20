@@ -3,3 +3,4 @@ MySQL-python
 Pillow
 django-ckeditor
 sorl-thumbnail
+django-grappelli

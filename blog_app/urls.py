@@ -1,5 +1,6 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from blog_app import views
+
 
 urlpatterns = [
     url(r'^$', views.FrontPageView.as_view(), name='index'),

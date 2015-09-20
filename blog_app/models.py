@@ -114,7 +114,7 @@ class Post(SeoInformation):
 
 
 class Block(models.Model):
-    BLOCK_TEMPLATES = [(t, t) for t in os.listdir(os.path.join(settings.BASE_DIR, 'blog_app/templates/blocks'))]
+    BLOCK_TEMPLATES = [(t, t) for t in os.listdir(os.path.join(settings.BASE_DIR, 'blog_app/templates/blog_app/blocks'))]
     BLOCK_STATUS = (
         (0, 'Disabled'),
         (1, 'Enabled'),
