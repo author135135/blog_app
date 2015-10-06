@@ -29,7 +29,7 @@ class PostPageView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostPageView, self).get_context_data(**kwargs)
-        context['related_posts'] = models.Post.public_posts.filter(category=self.object.category.pk).order_by(
+        context['related_posts'] = models.Post.objects.filter(category=self.object.category.pk).order_by(
             '?').exclude(pk=self.object.pk)[:3]
 
         return context

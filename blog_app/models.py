@@ -5,6 +5,21 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 
+class ContentPublicManager(models.Manager):
+    def get_queryset(self):
+        return super(ContentPublicManager, self).get_queryset().filter(status='public')
+
+
+class PostManager(ContentPublicManager):
+    def get_queryset(self):
+        return super(PostManager, self).get_queryset().select_related('category')
+
+
+class BlockManager(ContentPublicManager):
+    def get_queryset(self):
+        return super(BlockManager, self).get_queryset().prefetch_related('block_html', 'block_top_posts')
+
+
 class Menu(models.Model):
     name = models.CharField(max_length=75)
     region = models.CharField(max_length=75, choices=settings.BLOG_MENU_POSITIONS)
@@ -43,11 +58,6 @@ CONTENT_STATUS = (
 )
 
 
-class PagePublicManager(models.Manager):
-    def get_queryset(self):
-        return super(PagePublicManager, self).get_queryset().filter(status='public')
-
-
 class Page(SeoInformation):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
@@ -56,8 +66,8 @@ class Page(SeoInformation):
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=75, choices=CONTENT_STATUS, default='public')
 
-    objects = models.Manager()
-    public_pages = PagePublicManager()
+    objects = ContentPublicManager()
+    admin_objects = models.Manager()
 
     def __unicode__(self):
         return self.title
@@ -75,18 +85,6 @@ class Category(SeoInformation):
         return self.title
 
 
-class PostManager(models.Manager):
-    use_for_related_fields = True
-
-    def get_queryset(self):
-        return super(PostManager, self).get_queryset().select_related('category')
-
-
-class PostPublicManager(PostManager):
-    def get_queryset(self):
-        return super(PostPublicManager, self).get_queryset().filter(status='public')
-
-
 class Post(SeoInformation):
     category = models.ForeignKey(to=Category)
     title = models.CharField(max_length=255)
@@ -98,7 +96,7 @@ class Post(SeoInformation):
     status = models.CharField(max_length=75, choices=CONTENT_STATUS, default='public')
 
     objects = PostManager()
-    public_posts = PostPublicManager()
+    admin_objects = models.Manager()
 
     class Meta:
         ordering = ('-created_at',)
@@ -115,19 +113,25 @@ class Post(SeoInformation):
 
 class Block(models.Model):
     BLOCK_TEMPLATES = [(t, t) for t in os.listdir(os.path.join(settings.BASE_DIR, 'blog_app/templates/blog_app/blocks'))]
-    BLOCK_STATUS = (
-        (0, 'Disabled'),
-        (1, 'Enabled'),
-    )
 
     title = models.CharField(max_length=75)
     region = models.CharField(max_length=100, choices=settings.BLOG_BLOCK_REGIONS)
     pages = models.TextField(default='*', help_text='Enter page url one per line')
     template = models.CharField(max_length=100, choices=BLOCK_TEMPLATES)
-    status = models.SmallIntegerField(choices=BLOCK_STATUS)
+    status = models.CharField(max_length=75, choices=CONTENT_STATUS, default='public')
+
+    objects = BlockManager()
+    admin_objects = models.Manager()
 
     def __unicode__(self):
         return self.title
+
+    def is_allowed_in_page(self, request):
+        allowed_pages = map(lambda s: s.strip(), self.pages.split("\n"))
+
+        if '*' in allowed_pages or request.path in allowed_pages:
+            return True
+        return False
 
 
 class BlockHtml(models.Model):

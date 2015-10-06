@@ -60,7 +60,7 @@ def sidebar_content():
         pass
 
     if category:
-        posts = models.Post.public_posts.filter(category=category)[:4]
+        posts = models.Post.objects.filter(category=category)[:4]
 
     return {
         'category': category,

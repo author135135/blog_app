@@ -8,9 +8,8 @@ def context_data(request):
     if 'admin' not in request.path:
         # Get all Block models available in this page
         blocks = list()
-        for block in models.Block.objects.filter(status=1).prefetch_related('block_html', 'block_top_posts'):
-            allowed_pages = block.pages.split("\n")
-            if '*' in allowed_pages or request.path in allowed_pages:
+        for block in models.Block.objects.all():
+            if block.is_allowed_in_page(request):
                 blocks.append(block)
 
         context['blocks'] = blocks
@@ -24,6 +23,6 @@ def context_data(request):
         context['search_form'] = search_form
 
         # Latest posts
-        context['latest_posts'] = models.Post.public_posts.all()[:5]
+        context['latest_posts'] = models.Post.objects.all()[:5]
 
     return context

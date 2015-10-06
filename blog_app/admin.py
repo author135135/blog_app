@@ -23,6 +23,9 @@ class PageAdmin(admin.ModelAdmin):
         ('SEO information', {'fields': ('meta_title', 'meta_description', 'meta_keywords')})
     )
 
+    def get_queryset(self, request):
+        return models.Page.admin_objects.all()
+
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'show_in_sidebar')
@@ -44,12 +47,18 @@ class PostAdmin(admin.ModelAdmin):
         ('SEO information', {'fields': ('meta_title', 'meta_description', 'meta_keywords')})
     )
 
+    def get_queryset(self, request):
+        return models.Post.admin_objects.all()
+
 
 class BlockAdmin(admin.ModelAdmin):
-    list_display = ('title', 'region', 'pages')
+    list_display = ('title', 'region', 'status')
     fieldsets = (
         ('Information', {'fields': ('title', 'region', 'pages', 'template', 'status')}),
     )
+
+    def get_queryset(self, request):
+        return models.Block.admin_objects.all()
 
 
 class BlockHtmlAdmin(admin.ModelAdmin):
