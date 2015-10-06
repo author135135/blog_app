@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'blog_app',
     'ckeditor',
     'ckeditor_uploader',
-    'debug_toolbar',
     'sorl.thumbnail',
 )
 
