@@ -1,7 +1,7 @@
 # coding: utf-8
 from django import forms
 from blog_app import models
-from ckeditor_uploader.widgets import CKEditorUploadingWidget as CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 # Frontend forms
@@ -30,12 +30,12 @@ class MenuItemAdminForm(forms.ModelForm):
 
 # Override default filed widget to use CKEditor widget
 class PageAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget)
+    content = forms.CharField(widget=CKEditorUploadingWidget())
 
 
 class PostAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget)
+    content = forms.CharField(widget=CKEditorUploadingWidget())
 
 
 class BlockTextAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget)
+    content = forms.CharField(widget=CKEditorUploadingWidget())

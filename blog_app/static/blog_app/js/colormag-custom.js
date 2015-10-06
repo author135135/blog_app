@@ -11,6 +11,10 @@ jQuery(document).ready(function () {
             return false;
         }
     });
+    jQuery("#menu-primary .has-children > a").click(function(e){
+        e.preventDefault();
+        console.log('asdsad');
+    });
 });
 
 jQuery(document).ready(function () {
