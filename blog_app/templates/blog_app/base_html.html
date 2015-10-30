@@ -118,6 +118,7 @@
                 <div id="secondary">
                     {% sidebar_content %}
                     {% region 'sidebar_ads' %}
+                    <div id="vk_groups"></div>
                 </div>
             </div>
         </div>
@@ -133,10 +134,7 @@
 
                     </div>
                     <div class="footer-socket-left-sectoin">
-                        <div class="copyright">Copyright &copy; 2015 <a href="#" title="COLORMAG" ><span>COLORMAG</span></a>.
-                            All rights reserved.<br>Theme: ColorMag by <a href="#" target="_blank" title="ThemeGrill" rel="designer"><span>ThemeGrill</span></a>.
-                            Powered by <a href="http://wordpress.org" target="_blank" title="WordPress"><span>WordPress</span></a>.
-                        </div>
+                        <div class="copyright">Copyright &copy; {% now 'Y' %} {{ request.META.HTTP_HOST }}</div>
                     </div>
                 </div>
             </div>
@@ -149,5 +147,11 @@
 <script type='text/javascript' src='{% static 'blog_app/js/news-ticker/ticker-setting.js' %}'></script>
 <script type='text/javascript' src='{% static 'blog_app/js/sticky/jquery.sticky.js' %}'></script>
 <script type='text/javascript' src='{% static 'blog_app/js/sticky/sticky-setting.js' %}'></script>
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?120"></script>
+
+<!-- VK Widget -->
+<script type="text/javascript">
+VK.Widgets.Group("vk_groups", {mode: 0, width: "300", height: "450", color1: 'FFFFFF', color2: '2B587A', color3: '5B7FA6'}, 95611658);
+</script>
 </body>
 </html>

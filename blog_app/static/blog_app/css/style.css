@@ -642,7 +642,7 @@ nav li > ol {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1) inset;
     position: relative;
     background-color: #232323;
-    border-top: 4px solid #289dcc;
+    border-top: 4px solid #098737;
 }
 #site-navigation .inner-wrap {
     position: relative;
@@ -655,7 +655,7 @@ nav li > ol {
     font-size: 27px;
 }
 .home-icon.front_page_on {
-    background-color: #289dcc;
+    background-color: #098737;
 }
 .main-navigation .home-icon a {
     padding: 7px 10px 6px;
@@ -709,7 +709,7 @@ li.default-menu {
 .main-navigation ul li.current-menu-ancestor > a,
 .main-navigation ul li.current_page_item > a,
 .main-navigation ul li:hover > a {
-    background-color: #289dcc;
+    background-color: #098737;
 }
 .main-navigation li.menu-item-has-children > a:after,
 .main-navigation li li.menu-item-has-children > a:after,
@@ -1382,6 +1382,7 @@ li.default-menu {
     float: left;
     font-size: 14px;
     max-width: 50%;
+    margin: 10px 0 0 0;
 }
 .footer-socket-wrapper .copyright a {
     color: #b1b6b6;
