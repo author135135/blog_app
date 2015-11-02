@@ -11,7 +11,7 @@ class FrontPageView(TemplateView):
         context = super(FrontPageView, self).get_context_data(**kwargs)
 
         # Get all categories
-        categories = models.Category.objects.prefetch_related('post_set').all()
+        categories = models.Category.objects.exclude(show_in_sidebar=1).prefetch_related('post_set').all()
         context['categories'] = categories
 
         return context

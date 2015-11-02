@@ -201,7 +201,7 @@ li > ol {
 blockquote {
     padding: 30px 30px 20px 45px;
     margin-bottom: 20px;
-    background-color: #289dcc;
+    background-color: lightgrey;
     color: #FFFFFF;
     border-radius: 5px;
 }
@@ -590,7 +590,7 @@ body {
     top: 0;
 }
 .fa.search-top:hover {
-    background-color: #289dcc;
+    background-color: #098737;
 }
 .search-wrap {
     position: relative;
@@ -604,6 +604,10 @@ body {
     position: absolute;
     top: 0;
     right: 0;
+    background-color: #098737;
+}
+.search-wrap button:hover {
+    background-color: #33363B;
 }
 .search-icon:before {
     content: "\f002";
@@ -786,7 +790,7 @@ li.default-menu {
 .main-navigation ul li ul li:hover > a,
 .main-navigation ul li.current-menu-item ul li a:hover {
     color: #FFFFFF;
-    background-color: #289dcc;
+    background-color: #098737;
 }
 .main-navigation ul li ul li ul {
     left: 200px;
@@ -810,7 +814,7 @@ li.default-menu {
     padding-bottom: 0;
 }
 .site-header .menu-toggle:hover {
-    background-color: #289dcc;
+    background-color: #098737;
 }
 .site-header .menu-toggle:before {
     content: "\f0c9";
@@ -850,7 +854,7 @@ li.default-menu {
     background-color: #FFFFFF;
 }
 .main-small-navigation li a:hover {
-    background-color: #289dcc;
+    background-color: #098737;
     color: #FFFFFF;
 }
 .main-small-navigation ul ul a {
@@ -1386,6 +1390,11 @@ li.default-menu {
 .footer-socket-wrapper .copyright a {
     color: #b1b6b6;
     border-bottom: 1px solid #5a5d62;
+}
+.footer-socket-wrapper .copyright span {
+    display: block;
+    font-size: 10px;
+    margin: 10px 0 0 0;
 }
 .footer-socket-wrapper .copyright a:hover {
     color: #ffffff;
@@ -2214,7 +2223,7 @@ a#scroll-up:hover {
     margin-top: 25px;
 }
 .related-posts-main-title .fa {
-    color: #289dcc;
+    color: #098737;
 }
 .related-posts-main-title span {
     font-size: 26px;

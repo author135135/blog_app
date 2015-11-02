@@ -12,6 +12,7 @@
         <meta name="keywords" content="Ключевые слова главной страницы">
     {% endblock %}
 
+    <link rel="shortcut icon" href="{% static 'blog_app/favicon.ico' %}" type="image/x-icon" />
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' type='text/css' />
     <link rel="stylesheet" href="{% static 'blog_app/css/style.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'blog_app/fonts/fontawesome/css/font-awesome.min.css' %}" type="text/css" />
@@ -134,7 +135,11 @@
 
                     </div>
                     <div class="footer-socket-left-sectoin">
-                        <div class="copyright">Copyright &copy; {% now 'Y' %} {{ request.META.HTTP_HOST }}</div>
+                        <div class="copyright">
+                            Copyright &copy; {% now 'Y' %} {{ request.META.HTTP_HOST }}
+                            <span>Копирование материалов без разрешения автора и активной прямой ссылки на статью - запрещено!<br>
+                            И преследуется законом "Об авторском праве и смежных правах"</span>
+                        </div>
                     </div>
                 </div>
             </div>
