@@ -11,9 +11,9 @@
 
 {% block content %}
     <header class="page-header">
-        <h3 class="page-title" style="border-bottom-color: #dd5a5a">
+        <h1 class="page-title" style="border-bottom-color: #dd5a5a">
             <span style="background-color: #dd5a5a">{{ object.title }}</span>
-        </h3>
+        </h1>
     </header>
     <div class="article-container">
         {% for post in object.post_set.all %}
@@ -27,9 +27,9 @@
                 </div>
                 <div class="article-content clearfix">
                     <header class="entry-header">
-                        <h1 class="entry-title">
+                        <h2 class="entry-title">
                             <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a>
-                        </h1>
+                        </h2>
                     </header>
                     <div class="below-entry-meta"></div>
                     <div class="entry-content clearfix">
